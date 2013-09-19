@@ -1,0 +1,3 @@
+[submodule "Externals/SDWebImage"]
+	path = Externals/SDWebImage
+	url = https://github.com/rs/SDWebImage.git
