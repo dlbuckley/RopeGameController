@@ -29,6 +29,7 @@
     
     self.networkController = [SPNetworkController sharedController];
     
+    [self.window setRootViewController:self.mainViewController];
     [self.window makeKeyAndVisible];
     return YES;
 }
