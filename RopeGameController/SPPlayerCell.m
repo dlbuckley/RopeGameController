@@ -32,7 +32,7 @@
 {
     self.textLabel.text = player.name;
     self.detailTextLabel.text = player.email;
-    [self.imageView setImageWithURL:[player.email gravatarURLWithSize:48]];
+    [self.imageView setImageWithURL:[player.email gravatarURLWithSize:48 defaultImage:@"mm" secure:FALSE]];
 }
 
 @end
