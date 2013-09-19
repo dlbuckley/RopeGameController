@@ -20,6 +20,7 @@
 {
     SPPlayer *player = [SPPlayer playerWithIdentifier:[NSString stringWithFormat:@"%d", [peerID.displayName hash]]];
     player.peerID = peerID;
+    player.email = peerID.displayName;
     
     return player;
 }
