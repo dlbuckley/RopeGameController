@@ -7,6 +7,7 @@
 //
 
 #import "SPPlayersViewController.h"
+#import "SPPlayerCell.h"
 
 @interface SPPlayersViewController ()
 
@@ -37,7 +38,7 @@
 {
     if (![self.players objectForKey:player.identifier]) {
         [self.players setValue:player forKey:player.identifier];
-        [self.playersOrder addObject:player.identifier];
+        [self.playersOrder addObject:player];
         
         [self.tableView reloadData];
         
@@ -85,6 +86,8 @@
 {
     [super viewDidLoad];
 
+    [self.tableView registerClass:[SPPlayerCell class] forCellReuseIdentifier:@"PlayerCell"];
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -102,24 +105,31 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 64.0f;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return self.players.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"PlayerCell";
+    SPPlayerCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
-    // Configure the cell...
+    if (!cell) {
+        cell = [[SPPlayerCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+    }
+    
+    [cell configureWithPlayer:self.playersOrder[indexPath.row]];
     
     return cell;
 }
