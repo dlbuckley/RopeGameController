@@ -11,8 +11,8 @@
 
 @interface SPPlayersViewController ()
 
-@property (nonatomic, strong) NSMutableDictionary *players;
-@property (nonatomic, strong) NSMutableArray *playersOrder;
+@property (nonatomic, strong, readwrite) NSMutableDictionary *players;
+@property (nonatomic, strong, readwrite) NSMutableArray *playersOrder;
 
 @end
 

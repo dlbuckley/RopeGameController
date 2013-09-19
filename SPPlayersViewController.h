@@ -11,7 +11,8 @@
 
 @interface SPPlayersViewController : UITableViewController
 
-//@property (nonatomic, strong, readonly) NSArray *players;
+@property (nonatomic, strong, readonly) NSMutableDictionary *players;
+@property (nonatomic, strong, readonly) NSMutableArray *playersOrder;
 
 - (BOOL)addPlayer:(SPPlayer *)player;
 - (BOOL)removePlayer:(SPPlayer *)player;

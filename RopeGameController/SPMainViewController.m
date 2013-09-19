@@ -34,9 +34,7 @@ CGFloat const kTeamControllerMaxWidth = 240.0f;
 {
     if (!_team1Controller) {
         _team1Controller = [[SPPlayersViewController alloc] initWithStyle:UITableViewStylePlain];
-        
         _team1Controller.tableView.tableHeaderView = [self headerLabelWithText:@"Team 1"];
-        [_team1Controller addPlayer:[SPPlayer playerWithIdentifier:@"aaa" email:@"asdasd@asdas.it"]];
     }
     return _team1Controller;
 }
@@ -46,8 +44,6 @@ CGFloat const kTeamControllerMaxWidth = 240.0f;
     if (!_team2Controller) {
         _team2Controller = [[SPPlayersViewController alloc] initWithStyle:UITableViewStylePlain];
         _team2Controller.tableView.tableHeaderView = [self headerLabelWithText:@"Team 2"];
-        [_team2Controller addPlayer:[SPPlayer playerWithIdentifier:@"valerio" email:@"valerio.it"]];
-        [_team2Controller addPlayer:[SPPlayer playerWithIdentifier:@"aaa" email:@"asdasd@asdas.it"]];
     }
     return _team2Controller;
 }
