@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@import MultipeerConnectivity;
 
-@interface SPMainViewController : UIViewController
+@interface SPMainViewController : UIViewController <MCSessionDelegate>
 
 @end
