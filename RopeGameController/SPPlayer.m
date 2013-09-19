@@ -36,4 +36,16 @@
     return self;
 }
 
+- (void)setEmail:(NSString *)email
+{
+    _email = email;
+    
+    NSRange atRange = [_email rangeOfString:@"@"];
+    if (atRange.location != NSNotFound) {
+        NSArray *components = [[_email substringToIndex:atRange.location] componentsSeparatedByCharactersInSet:[NSCharacterSet punctuationCharacterSet]];
+    
+        self.name = [[components componentsJoinedByString:@" "] capitalizedString];
+    }
+}
+
 @end
