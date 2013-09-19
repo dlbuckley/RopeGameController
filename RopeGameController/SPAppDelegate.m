@@ -8,12 +8,10 @@
 
 #import "SPAppDelegate.h"
 #import "SPMainViewController.h"
-#import "SPNetworkController.h"
 
 @interface SPAppDelegate()
 
 @property (nonatomic, strong) SPMainViewController *mainViewController;
-@property (nonatomic, strong) SPNetworkController *networkController;
 
 @end
 

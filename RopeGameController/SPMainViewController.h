@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @import MultipeerConnectivity;
 
-NS_ENUM(NSUInteger, SPOperationType) {
+typedef NS_ENUM(NSUInteger, SPOperationType) {
     SPOperationPlayerConnected,
     SPOperationStartGame,
     SPOperationGameProgress,

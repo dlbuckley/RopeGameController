@@ -81,6 +81,17 @@
     return [self removePlayer:[self.players objectForKey:identifier]];
 }
 
+- (BOOL)doesTeamContainPlayerWithPeerID:(MCPeerID*)peerID
+{
+    for (SPPlayer *player in self.players) {
+        if (player.peerID == peerID) {
+            return TRUE;
+        }
+    }
+    
+    return FALSE;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];

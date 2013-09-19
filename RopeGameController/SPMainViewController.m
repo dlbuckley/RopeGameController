@@ -131,6 +131,14 @@ static NSString *const kServiceType = @"ropegame";
     self.team2Controller.view.frame = frame;
 }
 
+- (NSData*)dataForOperation:(SPOperationType)opType value:(id)value
+{
+    NSDictionary *dict = @{@"operationID":@(opType),
+                           @"value":value};
+    
+    return [NSKeyedArchiver archivedDataWithRootObject:dict];
+}
+
 # pragma mark - MCSessionDelegate Methods
 
 // Remote peer changed state
@@ -150,16 +158,17 @@ static NSString *const kServiceType = @"ropegame";
             
             SPPlayer *player = [SPPlayer playerWithPeerID:peerID];
             
+            int teamNumber = 0;
+            
             if (self.team2Controller.players.count >= self.team1Controller.players.count) {
                 [self.team1Controller addPlayer:player];
+                teamNumber = 1;
             } else {
                 [self.team2Controller addPlayer:player];
+                teamNumber = 2;
             }
             
-            NSDictionary *dict = @{@"opetationID":@(SPOperationPlayerConnected),
-                                   @"value":@""};
-            
-            [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:dict]
+            [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(teamNumber)]
                            toPeers:@[peerID]
                           withMode:MCSessionSendDataUnreliable
                              error:nil];
@@ -182,14 +191,32 @@ static NSString *const kServiceType = @"ropegame";
         switch (opType) {
             case SPOperationUserProgress:
                 
-                //NSUInteger value = [(NSNumber*)[dict objectForKey:@"value"] intValue];
+                //int value = (int)[dict objectForKey:@"value"]
+                
+                if ([self.team1Controller doesTeamContainPlayerWithPeerID:peerID]) {
+                    self.team1Controller.totalScore += 100;
+                }else if ([self.team2Controller doesTeamContainPlayerWithPeerID:peerID]) {
+                    self.team2Controller.totalScore += 100;
+                }
+                
+                int difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
+                
+                if (difference < 0)
+                    difference = -difference;
+                
+                if (difference > 1000) {
+                    [self.session sendData:[self dataForOperation:SPOperationEndGame value:self.team1Controller.totalScore > self.team2Controller.totalScore ? @(1) : @(2)]
+                                   toPeers:self.session.connectedPeers
+                                  withMode:MCSessionSendDataUnreliable
+                                     error:nil];
+                } else {
+                    [self.session sendData:[self dataForOperation:SPOperationGameProgress value:nil]
+                                   toPeers:self.session.connectedPeers
+                                  withMode:MCSessionSendDataUnreliable
+                                     error:nil];
+                }
                 
                 
-                
-                [self.session sendData:nil
-                               toPeers:self.session.connectedPeers
-                              withMode:MCSessionSendDataUnreliable
-                                 error:nil];
                 break;
                 
             default:

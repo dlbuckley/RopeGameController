@@ -19,5 +19,6 @@
 - (SPPlayer*)playerForID:(NSString*)identifier;
 - (BOOL)removePlayer:(SPPlayer *)player;
 - (BOOL)removePlayerWithID:(NSString *)identifier;
+- (BOOL)doesTeamContainPlayerWithPeerID:(MCPeerID*)peerID;
 
 @end
