@@ -147,6 +147,7 @@ static NSString *const kServiceType = @"ropegame";
 
 - (void)startGame
 {
+<<<<<<< HEAD
     if (!self.gameStarted) {
         self.gameStarted = TRUE;
         // Tell the players the game has started
@@ -155,6 +156,15 @@ static NSString *const kServiceType = @"ropegame";
                       withMode:MCSessionSendDataUnreliable
                          error:nil];
     }
+=======
+    self.ropePosition = 0.5f;
+    
+    // Tell the players the game has started
+    [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(0)]
+                   toPeers:self.session.connectedPeers
+                  withMode:MCSessionSendDataUnreliable
+                     error:nil];
+>>>>>>> b58c9e72e22b1911e0b907f961a323ed1d0ddff9
 }
 
 # pragma mark - MCSessionDelegate Methods

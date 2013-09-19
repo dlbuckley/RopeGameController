@@ -24,8 +24,6 @@ static NSString *const kServiceType = @"ropegame";
 @property (nonatomic, strong) MCSession *session;
 @property (nonatomic, strong) MCAdvertiserAssistant *advertiserAssistant;
 
-@property (assign) BOOL gameStarted;
-
 @end
 
 @implementation SPMainViewController
@@ -88,7 +86,6 @@ static NSString *const kServiceType = @"ropegame";
 {
     if (self = [super init]) {
         [self.advertiserAssistant start];
-        self.gameStarted = FALSE;
     }
     return self;
 }
@@ -139,7 +136,7 @@ static NSString *const kServiceType = @"ropegame";
 
 - (NSData*)dataForOperation:(SPOperationType)opType value:(id)value
 {
-    NSDictionary *dict = @{@"operationid":@(opType),
+    NSDictionary *dict = @{@"operationID":@(opType),
                            @"value":value};
     
     return [NSKeyedArchiver archivedDataWithRootObject:dict];
@@ -147,14 +144,13 @@ static NSString *const kServiceType = @"ropegame";
 
 - (void)startGame
 {
-    if (!self.gameStarted) {
-        self.gameStarted = TRUE;
-        // Tell the players the game has started
-        [self.session sendData:[self dataForOperation:SPOperationStartGame value:@(0)]
-                       toPeers:self.session.connectedPeers
-                      withMode:MCSessionSendDataUnreliable
-                         error:nil];
-    }
+    self.ropePosition = 0.5f;
+    
+    // Tell the players the game has started
+    [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(0)]
+                   toPeers:self.session.connectedPeers
+                  withMode:MCSessionSendDataUnreliable
+                     error:nil];
 }
 
 # pragma mark - MCSessionDelegate Methods
@@ -165,8 +161,6 @@ static NSString *const kServiceType = @"ropegame";
     switch (state) {
         case MCSessionStateNotConnected: {
             NSLog(@"Not Connected: %@", peerID);
-            [self.team1Controller removePlayerWithID:[NSString stringWithFormat:@"%d",[peerID.displayName hash]]];
-            [self.team2Controller removePlayerWithID:[NSString stringWithFormat:@"%d",[peerID.displayName hash]]];
             break;
         }
         case MCSessionStateConnecting: {
@@ -178,15 +172,19 @@ static NSString *const kServiceType = @"ropegame";
             
             SPPlayer *player = [SPPlayer playerWithPeerID:peerID];
             
-            int teamNumber = 0;
+            __block int teamNumber = 0;
 
-            if (self.team2Controller.players.count >= self.team1Controller.players.count) {
-                [self.team1Controller addPlayer:player];
-                teamNumber = 1;
-            } else {
-                [self.team2Controller addPlayer:player];
-                teamNumber = 2;
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (self.team2Controller.players.count >= self.team1Controller.players.count) {
+                    [self.team1Controller addPlayer:player];
+                    teamNumber = 1;
+                } else {
+                    [self.team2Controller addPlayer:player];
+                    teamNumber = 2;
+                }
+            });
+            
             
             // Tell the player they are connected to a team
             NSError *error;
@@ -198,12 +196,6 @@ static NSString *const kServiceType = @"ropegame";
                 NSLog(@"Player %@ connected to team %d", peerID.displayName, teamNumber);
             else
                 NSLog(@"Error adding %@ to a team", peerID);
-            
-            double delayInSeconds = 8.0;
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [self startGame];
-            });
             
             break;
         }
@@ -217,9 +209,9 @@ static NSString *const kServiceType = @"ropegame";
 {
     NSDictionary *dict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
-    if ([dict objectForKey:@"operationid"]) {
+    if ([dict objectForKey:@"operationID"]) {
         
-        SPOperationType opType = [(NSNumber*)[dict objectForKey:@"operationid"] intValue];
+        SPOperationType opType = [(NSNumber*)[dict objectForKey:@"operationID"] intValue];
         
         switch (opType) {
             case SPOperationUserProgress:
@@ -239,8 +231,6 @@ static NSString *const kServiceType = @"ropegame";
                     difference = -difference;
                 
                 if (difference > 1000) {
-                    
-                    self.gameStarted = FALSE;
                     
                     // A team has won!
                     [self.session sendData:[self dataForOperation:SPOperationEndGame value:self.team1Controller.totalScore > self.team2Controller.totalScore ? @(1) : @(2)]

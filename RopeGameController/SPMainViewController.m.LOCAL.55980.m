@@ -18,7 +18,6 @@ static NSString *const kServiceType = @"ropegame";
 
 @property (nonatomic, strong) SPPlayersViewController *team1Controller;
 @property (nonatomic, strong) SPPlayersViewController *team2Controller;
-@property (nonatomic) CGFloat ropePosition;
 
 @property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) MCSession *session;
@@ -227,12 +226,12 @@ static NSString *const kServiceType = @"ropegame";
                 //int value = (int)[dict objectForKey:@"value"]
                 
                 if ([self.team1Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team1Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] floatValue];
+                    self.team1Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
                 }else if ([self.team2Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team2Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] floatValue];
+                    self.team2Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
                 }
                 
-                CGFloat difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
+                int difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
                 
                 // Switch to positive value
                 if (difference < 0)
