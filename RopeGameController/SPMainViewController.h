@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 @import MultipeerConnectivity;
 
+NS_ENUM(NSUInteger, SPOperationType) {
+    SPOperationPlayerConnected,
+    SPOperationStartGame,
+    SPOperationGameProgress,
+    SPOperationUserProgress,
+    SPOperationEndGame,
+};
+
 @interface SPMainViewController : UIViewController <MCSessionDelegate>
 
 @end

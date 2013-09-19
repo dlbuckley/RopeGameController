@@ -48,6 +48,11 @@
     }
 }
 
+- (SPPlayer*)playerForID:(NSString*)identifier
+{
+    return [self.players objectForKey:identifier];
+}
+
 - (BOOL)removePlayer:(SPPlayer *)player
 {
     if (player) {
