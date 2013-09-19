@@ -147,6 +147,22 @@ static NSString *const kServiceType = @"ropegame";
         }
         case MCSessionStateConnected: {
             NSLog(@"Connected: %@", peerID);
+            
+            SPPlayer *player = [SPPlayer playerWithPeerID:peerID];
+            
+            if (self.team2Controller.players.count >= self.team1Controller.players.count) {
+                [self.team1Controller addPlayer:player];
+            } else {
+                [self.team2Controller addPlayer:player];
+            }
+            
+            NSDictionary *dict = @{@"opetationID":@(SPOperationPlayerConnected),
+                                   @"value":@""};
+            
+            [self.session sendData:[NSKeyedArchiver archivedDataWithRootObject:dict]
+                           toPeers:@[peerID]
+                          withMode:MCSessionSendDataUnreliable
+                             error:nil];
             break;
         }
         default:
@@ -157,7 +173,29 @@ static NSString *const kServiceType = @"ropegame";
 // Received data from remote peer
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
+    NSDictionary *dict = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
+    if ([dict objectForKey:@"operationID"]) {
+        
+        enum SPOperationType opType = [(NSNumber*)[dict objectForKey:@"operationID"] intValue];
+        
+        switch (opType) {
+            case SPOperationUserProgress:
+                
+                //NSUInteger value = [(NSNumber*)[dict objectForKey:@"value"] intValue];
+                
+                
+                
+                [self.session sendData:nil
+                               toPeers:self.session.connectedPeers
+                              withMode:MCSessionSendDataUnreliable
+                                 error:nil];
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 // Received a byte stream from remote peer

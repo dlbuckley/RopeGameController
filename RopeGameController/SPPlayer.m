@@ -16,6 +16,14 @@
 
 @implementation SPPlayer
 
++ (SPPlayer*)playerWithPeerID:(MCPeerID*)peerID
+{
+    SPPlayer *player = [SPPlayer playerWithIdentifier:[NSString stringWithFormat:@"%d", [peerID.displayName hash]]];
+    player.peerID = peerID;
+    
+    return player;
+}
+
 + (SPPlayer *)playerWithIdentifier:(NSString *)identifier
 {
     return [[SPPlayer alloc] initWithIdentifier:identifier];

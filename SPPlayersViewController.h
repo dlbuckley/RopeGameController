@@ -13,8 +13,10 @@
 
 @property (nonatomic, strong, readonly) NSMutableDictionary *players;
 @property (nonatomic, strong, readonly) NSMutableArray *playersOrder;
+@property (assign) NSUInteger *totalScore;
 
 - (BOOL)addPlayer:(SPPlayer *)player;
+- (SPPlayer*)playerForID:(NSString*)identifier;
 - (BOOL)removePlayer:(SPPlayer *)player;
 - (BOOL)removePlayerWithID:(NSString *)identifier;
 
