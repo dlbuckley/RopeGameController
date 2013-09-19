@@ -10,9 +10,67 @@
 
 @interface SPPlayersViewController ()
 
+@property (nonatomic, strong) NSMutableDictionary *players;
+@property (nonatomic, strong) NSMutableArray *playersOrder;
+
 @end
 
 @implementation SPPlayersViewController
+
+- (NSDictionary *)players
+{
+    if (!_players) {
+        _players = [NSMutableDictionary new];
+    }
+    return _players;
+}
+
+- (NSMutableArray *)playersOrder
+{
+    if (!_playersOrder) {
+        _playersOrder = [NSMutableArray new];
+    }
+    return _playersOrder;
+}
+
+- (BOOL)addPlayer:(SPPlayer *)player
+{
+    if (![self.players objectForKey:player.identifier]) {
+        [self.players setValue:player forKey:player.identifier];
+        [self.playersOrder addObject:player.identifier];
+        
+        [self.tableView reloadData];
+        
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}
+
+- (BOOL)removePlayer:(SPPlayer *)player
+{
+    if (player) {
+    
+        if ([self.players objectForKey:player.identifier]) {
+            [self.players removeObjectForKey:player.identifier];
+            [self.playersOrder removeObject:player];
+            
+            [self.tableView reloadData];
+            
+            return TRUE;
+            
+        } else {
+            return FALSE;
+        }
+    } else {
+        return FALSE;
+    }
+}
+
+- (BOOL)removePlayerWithID:(NSString *)identifier
+{
+    return [self removePlayer:[self.players objectForKey:identifier]];
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -46,14 +104,14 @@
 {
 #warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return self.players.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

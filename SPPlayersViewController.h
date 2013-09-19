@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SPPlayer.h"
 
 @interface SPPlayersViewController : UITableViewController
+
+//@property (nonatomic, strong, readonly) NSArray *players;
+
+- (BOOL)addPlayer:(SPPlayer *)player;
+- (BOOL)removePlayer:(SPPlayer *)player;
+- (BOOL)removePlayerWithID:(NSString *)identifier;
 
 @end

@@ -22,6 +22,7 @@
 		2DBDB30D17EAF03C003FC95C /* SPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */; };
 		2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */; };
 		B96FABC817EAF71300F5E02D /* SPPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */; };
+		B9CEC0CB17EAFCFC0057BA25 /* SPPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CEC0CA17EAFCFC0057BA25 /* SPPlayer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNetworkController.m; sourceTree = "<group>"; };
 		B96FABC617EAF71300F5E02D /* SPPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlayersViewController.h; path = ../SPPlayersViewController.h; sourceTree = "<group>"; };
 		B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlayersViewController.m; path = ../SPPlayersViewController.m; sourceTree = "<group>"; };
+		B9CEC0C917EAFCFC0057BA25 /* SPPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPlayer.h; sourceTree = "<group>"; };
+		B9CEC0CA17EAFCFC0057BA25 /* SPPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPlayer.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,8 @@
 				2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */,
 				B96FABC617EAF71300F5E02D /* SPPlayersViewController.h */,
 				B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */,
+				B9CEC0C917EAFCFC0057BA25 /* SPPlayer.h */,
+				B9CEC0CA17EAFCFC0057BA25 /* SPPlayer.m */,
 				2DBDB2EE17EAEEEC003FC95C /* Images.xcassets */,
 				2DBDB2E317EAEEEC003FC95C /* Supporting Files */,
 			);
@@ -256,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DBDB2E917EAEEEC003FC95C /* main.m in Sources */,
+				B9CEC0CB17EAFCFC0057BA25 /* SPPlayer.m in Sources */,
 				2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */,
 				2DBDB2ED17EAEEEC003FC95C /* SPAppDelegate.m in Sources */,
 				B96FABC817EAF71300F5E02D /* SPPlayersViewController.m in Sources */,
