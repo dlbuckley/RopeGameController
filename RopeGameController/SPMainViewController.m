@@ -18,6 +18,7 @@ static NSString *const kServiceType = @"ropegame";
 
 @property (nonatomic, strong) SPPlayersViewController *team1Controller;
 @property (nonatomic, strong) SPPlayersViewController *team2Controller;
+@property (nonatomic) CGFloat ropePosition;
 
 @property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) MCSession *session;
@@ -143,6 +144,8 @@ static NSString *const kServiceType = @"ropegame";
 
 - (void)startGame
 {
+    self.ropePosition = 0.5f;
+    
     // Tell the players the game has started
     [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(0)]
                    toPeers:self.session.connectedPeers
@@ -216,12 +219,12 @@ static NSString *const kServiceType = @"ropegame";
                 //int value = (int)[dict objectForKey:@"value"]
                 
                 if ([self.team1Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team1Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
+                    self.team1Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] floatValue];
                 }else if ([self.team2Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team2Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
+                    self.team2Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] floatValue];
                 }
                 
-                int difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
+                CGFloat difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
                 
                 // Switch to positive value
                 if (difference < 0)
