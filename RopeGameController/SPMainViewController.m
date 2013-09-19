@@ -41,6 +41,7 @@ static NSString *const kServiceType = @"ropegame";
     if (!_team1Controller) {
         _team1Controller = [[SPPlayersViewController alloc] initWithStyle:UITableViewStylePlain];
         _team1Controller.tableView.tableHeaderView = [self headerLabelWithText:@"Team 1"];
+        _team1Controller.tableView.tableFooterView = [UIView new];
     }
     return _team1Controller;
 }
@@ -50,6 +51,7 @@ static NSString *const kServiceType = @"ropegame";
     if (!_team2Controller) {
         _team2Controller = [[SPPlayersViewController alloc] initWithStyle:UITableViewStylePlain];
         _team2Controller.tableView.tableHeaderView = [self headerLabelWithText:@"Team 2"];
+        _team2Controller.tableView.tableFooterView = [UIView new];
     }
     return _team2Controller;
 }
@@ -167,21 +169,31 @@ static NSString *const kServiceType = @"ropegame";
             
             SPPlayer *player = [SPPlayer playerWithPeerID:peerID];
             
-            int teamNumber = 0;
+            __block int teamNumber = 0;
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (self.team2Controller.players.count >= self.team1Controller.players.count) {
+                    [self.team1Controller addPlayer:player];
+                    teamNumber = 1;
+                } else {
+                    [self.team2Controller addPlayer:player];
+                    teamNumber = 2;
+                }
+            });
             
-            if (self.team2Controller.players.count >= self.team1Controller.players.count) {
-                [self.team1Controller addPlayer:player];
-                teamNumber = 1;
-            } else {
-                [self.team2Controller addPlayer:player];
-                teamNumber = 2;
-            }
             
             // Tell the player they are connected to a team
+            NSError *error;
             [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(teamNumber)]
                            toPeers:@[peerID]
                           withMode:MCSessionSendDataUnreliable
-                             error:nil];
+                             error:&error];
+            if (!error)
+                NSLog(@"Player %@ connected to team %d", peerID.displayName, teamNumber);
+            else
+                NSLog(@"Error adding %@ to a team", peerID);
+            
             break;
         }
         default:
