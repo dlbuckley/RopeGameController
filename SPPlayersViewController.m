@@ -40,7 +40,7 @@
         [self.players setValue:player forKey:player.identifier];
         [self.playersOrder addObject:player];
         
-        [self.tableView reloadData];
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.playersOrder.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
         
         return TRUE;
     } else {
@@ -53,10 +53,13 @@
     if (player) {
     
         if ([self.players objectForKey:player.identifier]) {
+            
+            NSInteger index = [self.playersOrder indexOfObject:player];
+            
             [self.players removeObjectForKey:player.identifier];
             [self.playersOrder removeObject:player];
             
-            [self.tableView reloadData];
+            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
             
             return TRUE;
             
@@ -88,6 +91,8 @@
 
     [self.tableView registerClass:[SPPlayerCell class] forCellReuseIdentifier:@"PlayerCell"];
     self.tableView.allowsSelection = FALSE;
+    
+    [self.tableView reloadData];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
