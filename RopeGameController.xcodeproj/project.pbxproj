@@ -21,6 +21,7 @@
 		2DBDB30217EAEEEC003FC95C /* RopeGameControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30117EAEEEC003FC95C /* RopeGameControllerTests.m */; };
 		2DBDB30D17EAF03C003FC95C /* SPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */; };
 		2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */; };
+		B96FABC817EAF71300F5E02D /* SPPlayersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMainViewController.m; sourceTree = "<group>"; };
 		2DBDB30E17EAF28F003FC95C /* SPNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNetworkController.h; sourceTree = "<group>"; };
 		2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNetworkController.m; sourceTree = "<group>"; };
+		B96FABC617EAF71300F5E02D /* SPPlayersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlayersViewController.h; path = ../SPPlayersViewController.h; sourceTree = "<group>"; };
+		B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlayersViewController.m; path = ../SPPlayersViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +122,8 @@
 				2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */,
 				2DBDB30B17EAF03C003FC95C /* SPMainViewController.h */,
 				2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */,
+				B96FABC617EAF71300F5E02D /* SPPlayersViewController.h */,
+				B96FABC717EAF71300F5E02D /* SPPlayersViewController.m */,
 				2DBDB2EE17EAEEEC003FC95C /* Images.xcassets */,
 				2DBDB2E317EAEEEC003FC95C /* Supporting Files */,
 			);
@@ -253,6 +258,7 @@
 				2DBDB2E917EAEEEC003FC95C /* main.m in Sources */,
 				2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */,
 				2DBDB2ED17EAEEEC003FC95C /* SPAppDelegate.m in Sources */,
+				B96FABC817EAF71300F5E02D /* SPPlayersViewController.m in Sources */,
 				2DBDB30D17EAF03C003FC95C /* SPMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,6 +462,7 @@
 				2DBDB30717EAEEEC003FC95C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2DBDB30817EAEEEC003FC95C /* Build configuration list for PBXNativeTarget "RopeGameControllerTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +471,7 @@
 				2DBDB30A17EAEEEC003FC95C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
