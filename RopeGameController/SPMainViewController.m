@@ -139,6 +139,15 @@ static NSString *const kServiceType = @"ropegame";
     return [NSKeyedArchiver archivedDataWithRootObject:dict];
 }
 
+- (void)startGame
+{
+    // Tell the players the game has started
+    [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(0)]
+                   toPeers:self.session.connectedPeers
+                  withMode:MCSessionSendDataUnreliable
+                     error:nil];
+}
+
 # pragma mark - MCSessionDelegate Methods
 
 // Remote peer changed state
@@ -168,6 +177,7 @@ static NSString *const kServiceType = @"ropegame";
                 teamNumber = 2;
             }
             
+            // Tell the player they are connected to a team
             [self.session sendData:[self dataForOperation:SPOperationPlayerConnected value:@(teamNumber)]
                            toPeers:@[peerID]
                           withMode:MCSessionSendDataUnreliable
@@ -186,7 +196,7 @@ static NSString *const kServiceType = @"ropegame";
     
     if ([dict objectForKey:@"operationID"]) {
         
-        enum SPOperationType opType = [(NSNumber*)[dict objectForKey:@"operationID"] intValue];
+        SPOperationType opType = [(NSNumber*)[dict objectForKey:@"operationID"] intValue];
         
         switch (opType) {
             case SPOperationUserProgress:
@@ -194,22 +204,26 @@ static NSString *const kServiceType = @"ropegame";
                 //int value = (int)[dict objectForKey:@"value"]
                 
                 if ([self.team1Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team1Controller.totalScore += 100;
+                    self.team1Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
                 }else if ([self.team2Controller doesTeamContainPlayerWithPeerID:peerID]) {
-                    self.team2Controller.totalScore += 100;
+                    self.team2Controller.totalScore += [(NSNumber*)[dict objectForKey:@"value"] intValue];
                 }
                 
                 int difference = self.team1Controller.totalScore - self.team2Controller.totalScore;
                 
+                // Switch to positive value
                 if (difference < 0)
                     difference = -difference;
                 
                 if (difference > 1000) {
+                    
+                    // A team has won!
                     [self.session sendData:[self dataForOperation:SPOperationEndGame value:self.team1Controller.totalScore > self.team2Controller.totalScore ? @(1) : @(2)]
                                    toPeers:self.session.connectedPeers
                                   withMode:MCSessionSendDataUnreliable
                                      error:nil];
                 } else {
+                    // Update the players progress
                     [self.session sendData:[self dataForOperation:SPOperationGameProgress value:nil]
                                    toPeers:self.session.connectedPeers
                                   withMode:MCSessionSendDataUnreliable
