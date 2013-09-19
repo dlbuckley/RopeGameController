@@ -87,13 +87,16 @@
 
 - (BOOL)doesTeamContainPlayerWithPeerID:(MCPeerID*)peerID
 {
-    for (SPPlayer *player in self.players) {
-        if (player.peerID == peerID) {
+    
+    return !![self.players objectForKey:[NSString stringWithFormat:@"%d",[peerID.displayName hash]]];
+    
+    /*for (SPPlayer *player in self.players) {
+        if ([player.peerID.displayName isEqualToString:peerID.displayName]) {
             return TRUE;
         }
-    }
+    }*/
     
-    return FALSE;
+    //return FALSE;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style

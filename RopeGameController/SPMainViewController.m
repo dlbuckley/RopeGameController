@@ -167,6 +167,7 @@ static NSString *const kServiceType = @"ropegame";
             NSLog(@"Not Connected: %@", peerID);
             [self.team1Controller removePlayerWithID:[NSString stringWithFormat:@"%d",[peerID.displayName hash]]];
             [self.team2Controller removePlayerWithID:[NSString stringWithFormat:@"%d",[peerID.displayName hash]]];
+            self.gameStarted = FALSE;
             break;
         }
         case MCSessionStateConnecting: {
@@ -238,8 +239,8 @@ static NSString *const kServiceType = @"ropegame";
                 if (difference < 0)
                     difference = -difference;
                 
-                if (difference > 1000) {
-                    
+                if (difference > 10000) {
+                    NSLog(@"A team has won!");
                     self.gameStarted = FALSE;
                     
                     // A team has won!
@@ -248,8 +249,12 @@ static NSString *const kServiceType = @"ropegame";
                                   withMode:MCSessionSendDataUnreliable
                                      error:nil];
                 } else {
+                    NSLog(@"Progress! %f", difference);
                     // Update the players progress
-                    [self.session sendData:[self dataForOperation:SPOperationGameProgress value:nil]
+                    
+                    
+                    
+                    [self.session sendData:[self dataForOperation:SPOperationGameProgress value:@(difference / 10000)]
                                    toPeers:self.session.connectedPeers
                                   withMode:MCSessionSendDataUnreliable
                                      error:nil];
