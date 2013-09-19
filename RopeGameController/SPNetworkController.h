@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+@import MultipeerConnectivity;
 
-@interface SPNetworkController : NSObject
+static NSString *const kSPNetworkControllerNotificationDidAddPeer = @"kSPNetworkControllerNotificationDidAddPeer";
+static NSString *const kSPNetworkControllerNotificationDidRemovePeer = @"kSPNetworkControllerNotificationDidRemovePeer";
+
+@interface SPNetworkController : NSObject <MCNearbyServiceBrowserDelegate, MCSessionDelegate>
+
+@property (nonatomic, strong) NSMutableArray *peers;
+
++ (SPNetworkController*)sharedController;
+
+- (void)broadcastData:(NSData*)data;
 
 @end
