@@ -87,6 +87,7 @@
     [super viewDidLoad];
 
     [self.tableView registerClass:[SPPlayerCell class] forCellReuseIdentifier:@"PlayerCell"];
+    self.tableView.allowsSelection = FALSE;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
