@@ -40,7 +40,9 @@
         [self.players setValue:player forKey:player.identifier];
         [self.playersOrder addObject:player];
         
-        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.playersOrder.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.playersOrder.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+        });
         
         return TRUE;
     } else {
@@ -64,7 +66,9 @@
             [self.players removeObjectForKey:player.identifier];
             [self.playersOrder removeObject:player];
             
-            [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+            });
             
             return TRUE;
             
