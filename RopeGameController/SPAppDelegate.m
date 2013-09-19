@@ -8,10 +8,12 @@
 
 #import "SPAppDelegate.h"
 #import "SPMainViewController.h"
+#import "SPNetworkController.h"
 
 @interface SPAppDelegate()
 
 @property (nonatomic, strong) SPMainViewController *mainViewController;
+@property (nonatomic, strong) SPNetworkController *networkController;
 
 @end
 
@@ -24,6 +26,8 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     self.mainViewController = [SPMainViewController new];
+    
+    self.networkController = [SPNetworkController sharedController];
     
     [self.window makeKeyAndVisible];
     return YES;

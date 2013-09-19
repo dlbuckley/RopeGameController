@@ -8,7 +8,7 @@
 
 #import "SPNetworkController.h"
 
-static NSString *const kServiceType = @"com.nsspain.ropeGame";
+static NSString *const kServiceType = @"ropegame";
 
 @interface SPNetworkController ()
 
