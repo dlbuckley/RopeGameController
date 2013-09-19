@@ -20,6 +20,7 @@
 		2DBDB30017EAEEEC003FC95C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2DBDB2FE17EAEEEC003FC95C /* InfoPlist.strings */; };
 		2DBDB30217EAEEEC003FC95C /* RopeGameControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30117EAEEEC003FC95C /* RopeGameControllerTests.m */; };
 		2DBDB30D17EAF03C003FC95C /* SPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */; };
+		2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		2DBDB30117EAEEEC003FC95C /* RopeGameControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RopeGameControllerTests.m; sourceTree = "<group>"; };
 		2DBDB30B17EAF03C003FC95C /* SPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMainViewController.h; sourceTree = "<group>"; };
 		2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMainViewController.m; sourceTree = "<group>"; };
+		2DBDB30E17EAF28F003FC95C /* SPNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNetworkController.h; sourceTree = "<group>"; };
+		2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNetworkController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 			children = (
 				2DBDB2EB17EAEEEC003FC95C /* SPAppDelegate.h */,
 				2DBDB2EC17EAEEEC003FC95C /* SPAppDelegate.m */,
+				2DBDB30E17EAF28F003FC95C /* SPNetworkController.h */,
+				2DBDB30F17EAF28F003FC95C /* SPNetworkController.m */,
 				2DBDB30B17EAF03C003FC95C /* SPMainViewController.h */,
 				2DBDB30C17EAF03C003FC95C /* SPMainViewController.m */,
 				2DBDB2EE17EAEEEC003FC95C /* Images.xcassets */,
@@ -246,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DBDB2E917EAEEEC003FC95C /* main.m in Sources */,
+				2DBDB31017EAF28F003FC95C /* SPNetworkController.m in Sources */,
 				2DBDB2ED17EAEEEC003FC95C /* SPAppDelegate.m in Sources */,
 				2DBDB30D17EAF03C003FC95C /* SPMainViewController.m in Sources */,
 			);
