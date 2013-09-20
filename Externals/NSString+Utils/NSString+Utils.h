@@ -10,8 +10,6 @@
 
 @interface NSString (Utils)
 
-- (NSString *)firstLetter;
-
 - (NSString *)stringByEnsuringPrefix:(NSString *)prefix;
 - (NSString *)stringByEnsuringSuffix:(NSString *)suffix;
 
